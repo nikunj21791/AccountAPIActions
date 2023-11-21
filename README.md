@@ -46,7 +46,7 @@ This class houses all the common utility methods such as the Report(), GetRespon
 
 The report function is called whenever a checkpoint is reached or the result (i.e) PASS, FAIL, ERROR, WARNING or INFO is to be logged. This writes into the HTML extent report.
 
-The GetResponseFromAPI function is called to perform API Test to get the response from different endpoints like POST, GET, PUT, DELET, PATCH with all the required parameters passed to this method.
+The GetResponseFromAPI function is called to perform API Test to get the response from different endpoints like POST, GET, PUT, DELETE, PATCH with all the required parameters passed to this method.
 
 ### IOUtil
 
