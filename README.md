@@ -58,14 +58,14 @@ The GetIterationCountExcel accepts a string which is the name of the test method
 
 
 # Automation.Tests
-The project Automation.Base comprises of processes performing all the pre-requisites and post-requisites that need to be perfomed on both the suite execution level and the test execution level.
+The project Automation.Tests comprises of all the processes related to test steps tp be carried out in order to accomplish a test case execution, alongwith using the resources providing inputs for those test cases.
 
 # Components
 ---
 
 ### Tests
 
-The Tets folder consists of all the Test Classes that we would like to run from our test suite. Currently, we have created a DealingWithAccounts.cs file that comprises of 4 tests:
+The Tests folder consists of all the Test Classes that we would like to run from our test suite. Currently, we have created a DealingWithAccounts.cs file that comprises of 4 tests:
 
 - CreateAccount
 - DepositIntoAccount
