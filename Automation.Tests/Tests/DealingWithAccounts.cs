@@ -6,7 +6,7 @@ using Xunit;
 using Xunit.Abstractions;
 using Xunit.Priority;
 
-namespace CommonSpirit.Automation.PCDE.Tests
+namespace AccountAPIActions.Automation.Tests
 {
 	[Collection("XUnit Collection")]
 	[TestCaseOrderer(PriorityOrderer.Name, PriorityOrderer.Assembly)]
