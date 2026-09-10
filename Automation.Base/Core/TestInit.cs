@@ -1,11 +1,11 @@
-using CommonSpirit.Automation.Base.Utils;
+using Automation.Base.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Xunit.Abstractions;
 
-namespace CommonSpirit.Automation.Base.Core
+namespace Automation.Base.Core
 {
     /// <summary>To initialize the driver, input data and test case report for each test case iteration</summary>
     public class TestInit : CommonUtilities, IDisposable
