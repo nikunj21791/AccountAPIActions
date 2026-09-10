@@ -1,7 +1,7 @@
 using Xunit;
 using Xunit.Abstractions;
 
-namespace CommonSpirit.Automation.Base.Core
+namespace Automation.Base.Core
 {
 	/// <summary>Implements the IRunnerReporter interface to continuously keep a look on each step of the test suite execution</summary>
 	public class MyRunnerReporter : IRunnerReporter
