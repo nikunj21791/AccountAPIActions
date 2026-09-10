@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
-namespace CommonSpirit.Automation.Base.Utils
+namespace Automation.Base.Utils
 {
     /// <summary>
     /// To make use of the commonly used functionalities while performing automated testing like
