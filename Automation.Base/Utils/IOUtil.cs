@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace CommonSpirit.Automation.Base.Utils
+namespace Automation.Base.Utils
 {
     class IOUtil
     {
