@@ -1,8 +1,8 @@
 using AventStack.ExtentReports;
-using CommonSpirit.Automation.Base.Utils;
+using Automation.Base.Utils;
 using Xunit.Abstractions;
 
-namespace CommonSpirit.Automation.Base.Core
+namespace Automation.Base.Core
 {
 	/// <summary>
 	/// Implements the IMessageSink interface to report the results of the test assembly, i.e., whether the test case
