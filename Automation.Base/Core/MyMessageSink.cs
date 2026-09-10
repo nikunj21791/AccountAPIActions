@@ -29,9 +29,9 @@ namespace Automation.Base.Core
 			}
 			else if (message is ITestPassed)
 			{
-				Report(Status.Pass, "Test Case passed successfully");
+				Report(Status.Pass, "Test Case passed successfully", false);
 				reportStatus = true;
-				if(screenShot != null) { System.IO.File.Delete(reportFolderPath + "\\" + screenShot); }
+				if (screenShot != null) { System.IO.File.Delete(reportFolderPath + "\\" + screenShot); }
 			}
 			else if (message is ITestFailed testFailed)
 			{
@@ -39,7 +39,7 @@ namespace Automation.Base.Core
 				{
 					var msg = string.Format("Test Case failed: {0}. {1}", testFailed.ExceptionTypes[0], testFailed.StackTraces[0]);
 					useScreenShot = true;
-					Report(Status.Fail, msg);
+					Report(Status.Fail, msg, true);
 				}
 				else
 				{

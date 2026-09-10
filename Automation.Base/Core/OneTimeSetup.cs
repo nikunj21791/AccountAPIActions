@@ -1,6 +1,7 @@
 using AventStack.ExtentReports.Reporter;
 using Automation.Base.Utils;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Automation.Base.Core
@@ -27,6 +28,8 @@ namespace Automation.Base.Core
         {
 			//Load properties
 			GetProperties("..\\..\\..\\user_config.properties");
+			browser = props.GetValueOrDefault("browser", "Chrome");
+			browserResolution = props.GetValueOrDefault("browserResolution", "1366,768");
 
 			//Set report and screenshots path
 			var path = System.Reflection.Assembly.GetCallingAssembly().Location;
@@ -50,8 +53,8 @@ namespace Automation.Base.Core
 			dataSheet = IOUtil.GetDataSheet("..\\..\\..\\Resources\\Input.xlsx");
 			if (dataSheet == null)
 			{
+				Report(AventStack.ExtentReports.Status.Error, "The specified Data Sheet in the user_config file '" + props["datasheet"] + "' either does not exist or is already open", false);
 				test = extent.CreateTest("Test Suite not Executed", "Either No DataSheet found or the DataSheet is already open");
-				Report(AventStack.ExtentReports.Status.Error, "The specified Data Sheet in the user_config file '" + props["datasheet"] + "' either does not exist or is already open");
 				extent.Flush();
 				Environment.Exit(0);
 			}
@@ -59,9 +62,14 @@ namespace Automation.Base.Core
 			//Set the Iteration List of the Test Cases and Base URL value
 			IOUtil.SetIterationList(dataSheet);
 			IOUtil.FetchCommonParameters(dataSheet);
+			baseURL = IOUtil.dataDic.GetValueOrDefault("Base URL", "");
 		}
 
         /// <summary>Runs at the end of the Test Suite execution, where the extent/HTML report is flushed and closed</summary>
-        public void Dispose() => extent.Flush();
+        public void Dispose()
+		{
+			extent.Flush();
+			CloseBrowserIfOpen();
+		}
     }
 }																		

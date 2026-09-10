@@ -1,4 +1,9 @@
+using AventStack.ExtentReports;
 using Automation.Base.Utils;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,14 +50,72 @@ namespace Automation.Base.Core
 			
 			//Start the extent test
 			var name = string.Format("{0} : Iteration {1}", testCaseName, currentIteration);
-			var desc = string.Format("{0}", data.GetValueOrDefault("Description", ""));
+			var desc = string.Format("{0} [Browser : {1}]", data.GetValueOrDefault("Description", ""), browser);
 			test = extent.CreateTest(name, desc);
 			if (currentIteration != iterationCount)
 				currentTestIteration[testCaseName] = currentIteration + 1;
+
+			//Veriy to whether open the browser
+			if(data.GetValueOrDefault("Open Browser", "Y").ToUpper().Contains("Y")) { LaunchBrowser(); }
+		}
+
+		/// <summary>Launches the browser with the Base URL mentioned in Common Parameters in the Excel input data</summary>
+		public void LaunchBrowser()
+		{
+			//Navigate to URL
+			var url = baseURL + data.GetValueOrDefault("Trailing URL", "");
+			CloseBrowserIfOpen();
+
+			//Setting up Chrome Driver options
+			var option = new ChromeOptions();
+			option.AddUserProfilePreference("download.default_directory", downloadDirectory);
+			option.AddUserProfilePreference("download.prompt_for_download", false);
+			option.AddUserProfilePreference("intl.accept_languages", "nl");
+			option.AddUserProfilePreference("disable-popup-blocking", "true");
+			option.AddArgument("--window-size=" + browserResolution);
+			if (browser.ToUpper().Contains("HEADLESS"))
+			{
+				option.AddArgument("--headless");
+			}
+
+			driver = (browser.ToUpper()) switch
+			{
+				"CHROME" => new ChromeDriver(option),
+				"IE" => new InternetExplorerDriver(),
+				"INTERNET EXPLORER" => new InternetExplorerDriver(),
+				"FF" => new FirefoxDriver(),
+				"FIREFOX" => new FirefoxDriver(),
+				"HEADLESS" => new ChromeDriver(option),
+				"HEADLESS CHROME" => new ChromeDriver(option),
+				_ => new ChromeDriver(option),
+			};
+
+			driver.Manage().Window.Maximize();
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(double.Parse(props.GetValueOrDefault("timeout", "30")));
+			js = (IJavaScriptExecutor)driver;
+
+			try
+			{
+				if (!url.Equals(""))
+				{
+					driver.Navigate().GoToUrl(url);
+				}
+			}
+			catch(Exception)
+			{
+				Report(Status.Fail, "Unable to hit the URL: " + url, true);
+			}
 		}
 
         /// <summary>Performs all the tear down operation, since Reporting is done at the end of every test method</summary>
-        public void Dispose() => data.Clear();
+        public void Dispose()
+		{
+			// clean-up code
+			MyMessageSink.screenShot = GetScreenshot("Fail");
+			CloseBrowserIfOpen();
+			data.Clear();
+			js = null;
+        }
     }
 
 	/// <summary>To decide the no. of iterations of execution for each test case, build the solution before each run</summary>
@@ -61,8 +124,7 @@ namespace Automation.Base.Core
 		/// <summary>Gets the data sheet from Excel input file</summary>
 		public RepeatAttribute()
 		{
-			CommonUtilities.GetProperties("..\\..\\..\\user_config.properties");
-            IOUtil.iterationDataPath = "..\\..\\..\\Resources\\" + CommonUtilities.props["datasheet"];
+			IOUtil.iterationDataPath = "..\\..\\..\\Resources\\Input.xlsx";
 		}
 
 		/// <summary>Sets the execution iteration count for each test case</summary>

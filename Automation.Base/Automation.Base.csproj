@@ -6,6 +6,10 @@
     <IsPackable>false</IsPackable>
     <Authors>Nikunj Bokadia</Authors>
     <Company>None</Company>
+    <Description>This project is specifically developed to facilitate Test Suite Automation to be executed with all the
+      pre-requisites and post-requisites handled like Test Data handling, Multiple Test Iterationsn for a single test case,
+      Extent Report functionality, Browser Configurations, etc.</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
