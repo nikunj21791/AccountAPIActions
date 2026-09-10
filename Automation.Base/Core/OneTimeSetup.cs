@@ -1,9 +1,9 @@
 using AventStack.ExtentReports.Reporter;
-using CommonSpirit.Automation.Base.Utils;
+using Automation.Base.Utils;
 using System;
 using System.IO;
 
-namespace CommonSpirit.Automation.Base.Core
+namespace Automation.Base.Core
 {
 	/// <summary>
 	/// Provides methods to perform a one time setup process that runs once at the start of the whole Test Suite execution
@@ -64,4 +64,4 @@ namespace CommonSpirit.Automation.Base.Core
         /// <summary>Runs at the end of the Test Suite execution, where the extent/HTML report is flushed and closed</summary>
         public void Dispose() => extent.Flush();
     }
-}
+}																		
