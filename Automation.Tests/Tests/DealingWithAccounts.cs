@@ -1,12 +1,12 @@
 ﻿using AventStack.ExtentReports;
-using CommonSpirit.Automation.Base.Core;
+using Automation.Base.Core;
 using RestSharp;
 using System.Collections.Generic;
 using Xunit;
 using Xunit.Abstractions;
 using Xunit.Priority;
 
-namespace AccountAPIActions.Automation.Tests
+namespace Automation.Tests.Tests
 {
 	[Collection("XUnit Collection")]
 	[TestCaseOrderer(PriorityOrderer.Name, PriorityOrderer.Assembly)]
