@@ -1,7 +1,7 @@
 using CommonSpirit.Automation.Base.Core;
 using Xunit;
 
-namespace CommonSpirit.Automation.PCDE.CollectionDefinition
+namespace AccountAPIActions.Automation.CollectionDefinition
 {
     [CollectionDefinition("XUnit Collection")]
     public class CollectionDefinition : ICollectionFixture<OneTimeSetup>
