@@ -20,8 +20,8 @@ namespace Automation.Base.Utils
 	/// and selecting web elements, verifying text in the fields, working with the browsers, getting screenshots,
 	/// reporting each test step result, getting Responses for Request API calls and so on
 	/// </summary>
-	public class CommonUtilities
-	{
+	public class CommonUtilities: LongLivedMarshalByRefObject
+    {
 		/// <summary>Drives the browser</summary>
 		public static IWebDriver driver;
 		/// <summary>Browser Name</summary>
@@ -102,7 +102,7 @@ namespace Automation.Base.Utils
 		/// <param name="status">Test Step Result</param>
 		/// <param name="description">Test Step Description</param>
 		/// <param name="isScreenshotNeeded">Screenshot Required?</param>
-		public void Report(Status status, string description, bool isScreenshotNeeded)
+		public void Report(Status status, string description, bool isScreenshotNeeded = false)
 		{
 			MediaEntityModelProvider MediaModel = null;
 
@@ -125,7 +125,7 @@ namespace Automation.Base.Utils
 
 			test.Log(status, description, MediaModel);
 			if(status == Status.Fail)
-				Assert.True(false, description);
+				Assert.Fail(description);
 		}
 
 		/// <summary>Gets the response of the POST API Request according to the inputs passed as parameters</summary>

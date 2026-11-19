@@ -1,5 +1,5 @@
-﻿using AventStack.ExtentReports;
-using Automation.Base.Core;
+﻿using Automation.Base.Core;
+using AventStack.ExtentReports;
 using RestSharp;
 using System.Collections.Generic;
 using Xunit;
@@ -13,7 +13,9 @@ namespace Automation.Tests.Tests
 	[DefaultPriority(0)]
 	public class DealingWithAccounts : TestInit
 	{
-		public DealingWithAccounts(ITestOutputHelper output) : base(output) { }
+        static Dictionary<string, string> accounts;
+
+        public DealingWithAccounts(ITestOutputHelper output) : base(output) { }
 
 		[Theory, Priority(1)]
 		[Repeat]
@@ -29,7 +31,7 @@ namespace Automation.Tests.Tests
             };
 
             //Act and Assert
-            var response = GetResponseFromAPI(basicUri, Method.Post, null, null, payload, "", headers);
+            var response = GetResponseFromPostAPI(basicUri, null, null, payload, "", headers);
             if ((int)response.StatusCode == 200)
 			{
 				Report(Status.Pass, "Request sent to server is: " + response.ResponseUri);
@@ -64,7 +66,7 @@ namespace Automation.Tests.Tests
             var expectedAmount = int.Parse(accounts[data["Account Number"] + " Balance"]) + int.Parse(data["Amount"]);
 
             //Act and Assert
-            var response = GetResponseFromAPI(basicUri, Method.Put, null, null, payload, "", headers);
+            var response = GetResponseFromPutAPI(basicUri, null, null, payload, "", headers);
 			if ((int)response.StatusCode == 200)
 			{
 				Report(Status.Pass, "Request send to server is: " + response.ResponseUri);
@@ -96,7 +98,7 @@ namespace Automation.Tests.Tests
             var expectedAmount = int.Parse(accounts[data["Account Number"] + " Balance"]) - int.Parse(data["Amount"]);
 
             //Act and Assert
-            var response = GetResponseFromAPI(basicUri, Method.Put, null, null, payload, "", headers);
+            var response = GetResponseFromPutAPI(basicUri, null, null, payload, "", headers);
 			if(expectedAmount < 0)
 				if ((int)response.StatusCode == 200)
                     Report(Status.Fail, "Amount is withdrawn even though the balance is not sufficient, hence test failed");
@@ -130,7 +132,7 @@ namespace Automation.Tests.Tests
             };
 
             //Act and Assert
-            var response = GetResponseFromAPI(basicUri, Method.Delete, null, null, "", "", headers);
+            var response = GetResponseFromDeleteAPI(basicUri, null, null, "", headers);
 			
 			if ((int)response.StatusCode == 200)
 			{

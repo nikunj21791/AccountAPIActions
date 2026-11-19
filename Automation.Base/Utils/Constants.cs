@@ -1,4 +1,4 @@
-namespace Perficient.Automation.Main.Utils
+namespace Automation.Base.Utils
 {
 	/// <summary>List of Constants used in various places of the framework</summary>
 	public static class Constants
